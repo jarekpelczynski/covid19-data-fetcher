@@ -2,5 +2,9 @@ version: '3.4'
 services:
   api:
     build: .
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: config/credentials.json
     ports:
-      - 3008:8080
+      - 8080:8080
+    volumes:
+      - ./config:/usr/src/app/config

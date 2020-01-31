@@ -10,4 +10,11 @@ App fetch latest data about Coronavirus from [Novel Coronavirus (2019-nCoV) Case
 
 ## Run
 
-`docker-compose up`
+- Copy `credentials.json` to `config/` directory
+- `docker-compose build`
+- `docker-compose up`
+
+```
+$ curl localhost:8080
+{"confirmed":9776,"deaths":213,"recovered":187,"updatedAt":"Jan30 930pm"}%
+```
