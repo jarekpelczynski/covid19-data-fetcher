@@ -4,7 +4,7 @@ const {
   getSpreadSheetValues
 } = require('./googleSheetsService.js');
 
-const spreadsheetId = '1yZv9w9zRKwrGTaR-YzmAqMefw4wMlaXocejdxZaTs6w';
+const spreadsheetId = '1wQVypefm946ch4XDp37uZ-wartW4V7ILdg-qYiDXUHM';
 
 const parseNumber = stringNum => {
   if (!stringNum || stringNum.length === 0) {
