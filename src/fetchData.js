@@ -18,16 +18,28 @@ const makeRequest = (key) => {
 
 const fetchData = () => {
   const promises = Object.keys(SOURCES).map(key => makeRequest(key));
-  let updatedAt = new Date();
   return Promise
     .all(promises)
     .then(data => {
-      const [confirmed, deaths, recovered] = data.map(d =>
-        d.map(row => {
-          updatedAt = new Date(Object.keys(row).slice(-1)[0]);
+      // Get last update from last column (from first endpoint)
+      const updatedAt = new Date(Object.keys(data[0][0]).slice(-1)[0]);
+
+      // Global stats
+      const [confirmed, deaths, recovered] = data.map(d => {
+        const total = d.map(row => {
           return Number(Object.values(row).slice(-1)[0])
-        }).reduce((sum, value) => sum + value)
-      );
+        }).reduce((sum, value) => sum + value);
+
+        const change = d.map(row => {
+          return Object.values(row).slice(-2).reduce((acc, value) => (value - acc));
+        }).reduce((acc, value) => (value - acc));
+
+        return {
+          total,
+          change
+        }
+
+      });
       // Get only data from confirmed
       const countries = data[0].map(row => {
         const cols = Object.values(row);
@@ -38,7 +50,7 @@ const fetchData = () => {
           change: Number(cols.slice(-2).reduce((acc, value) => (value - acc)))
         }
       })
-      return { confirmed, deaths, recovered, updatedAt, countries };
+      return { confirmed, deaths, recovered, countries, updatedAt };
   });
 }
 
