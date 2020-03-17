@@ -28,7 +28,17 @@ const fetchData = () => {
           return Number(Object.values(row).slice(-1)[0])
         }).reduce((sum, value) => sum + value)
       );
-      return { confirmed, deaths, recovered, updatedAt };
+      // Get only data from confirmed
+      const countries = data[0].map(row => {
+        const cols = Object.values(row);
+        return {
+          country: cols[1],
+          region: cols[0],
+          confirmed: Number(cols.slice(-1)),
+          change: Number(cols.slice(-2).reduce((acc, value) => (value - acc)))
+        }
+      })
+      return { confirmed, deaths, recovered, updatedAt, countries };
   });
 }
 
