@@ -32,7 +32,7 @@ const fetchData = () => {
 
         const change = d.map(row => {
           return Object.values(row).slice(-2).reduce((acc, value) => (value - acc));
-        }).reduce((acc, value) => (value - acc));
+        }).reduce((sum, value) => sum + value);
 
         return {
           total,
@@ -54,5 +54,5 @@ const fetchData = () => {
   });
 }
 
-// fetchData().then(result => console.log(result));
+fetchData().then(result => console.log(result));
 module.exports = fetchData;
