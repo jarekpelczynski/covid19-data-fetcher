@@ -54,5 +54,5 @@ const fetchData = () => {
   });
 }
 
-fetchData().then(result => console.log(result));
+// fetchData().then(result => console.log(result));
 module.exports = fetchData;
